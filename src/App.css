@@ -1,38 +1,93 @@
-.App {
-  text-align: center;
+:root {
+  --PrimaryColor: #fdfce5;
+  --SecondaryColor: #be3235;
+  --Money: rgb(13, 175, 13);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+html,
+.PrimaryColor {
+  background-color: var(--PrimaryColor);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.SecondaryColor {
+  background-color: var(--SecondaryColor);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.PrimaryFont {
+  font-family: Lobster;
+}
+
+/* NavBar */
+.navbarBrand {
+  font-size: 24px !important;
+}
+
+.nav-link {
+  font-size: 20px !important;
+}
+
+/* Header */
+.bookButton {
+  position: "relative" !important;
+  top: "-120px"!important;
+}
+
+
+/* Loading */
+.spinner-border {
+  width: 80px !important;
+  height: 80px !important;
+}
+
+/* Test boxes */
+.blackbox {
+  border: 5px solid black;
+}
+
+.redbox {
+  border: 5px solid red;
+
+}
+
+/* Menu & List Stuff */
+
+.listHeading {
+  font-size: calc(16px + 2vmin);
+  color: var(--SecondaryColor)
+}
+
+.listTitle {
+  font-size: calc(13px + 2vmin);
+}
+
+.listPrices {
   font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.money {
+  color: var(--Money)
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.hr-big {
+  border: 1px solid var(--SecondaryColor) !important;
+  width: 250px;
+}
+
+.hr-small {
+  border: 1px solid black !important;
+  width: 20px;
+}
+
+/* Contact Stuff */
+.contactTitle {
+  font-size: calc(24px + 2vmin);
+}
+
+.contactInfo,
+.contactInfo>* {
+  font-size: calc(12px + 2vmin);
+}
+
+.footer-text {
+  font-size: calc(15px + 2vmin);
 }
