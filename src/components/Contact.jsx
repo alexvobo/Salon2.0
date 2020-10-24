@@ -62,13 +62,23 @@ export default function Contact() {
         </Row>
         <Row className="justify-content-center ">
           <Col className="text-center">
-            <FontAwesomeIcon icon={faInstagram} size="5x" />
+            <a
+              target="_blank"
+              href="https://www.instagram.com/americanbeautysalons/">
+              <FontAwesomeIcon icon={faInstagram} size="5x" />
+            </a>
           </Col>
           <Col className="text-center">
-            <FontAwesomeIcon icon={faFacebook} size="5x" />
+            <a
+              target="_blank"
+              href="https://www.facebook.com/americanbeautysalons/">
+              <FontAwesomeIcon icon={faFacebook} size="5x" />
+            </a>
           </Col>
           <Col className="text-center">
-            <FontAwesomeIcon icon={faCalendarAlt} size="5x" />
+            <a target="_blank" href="https://ab.simplybook.me/v2/">
+              <FontAwesomeIcon icon={faCalendarAlt} size="5x" />
+            </a>
           </Col>
         </Row>
       </Container>

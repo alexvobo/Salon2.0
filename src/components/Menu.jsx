@@ -5,7 +5,10 @@ function renderData(data) {
   // Map over headings for our table
   return (
     <Container fluid className=" blackbox ">
-      <Row fluid className='justify-content-center'>
+      <Row fluid className="mt-4 justify-content-center">
+        <h1>Our Services</h1>
+      </Row>
+      <Row fluid className="justify-content-center">
         {Object.keys(data).map((heading) => {
           // Each heading contains services
           const services = data[heading];

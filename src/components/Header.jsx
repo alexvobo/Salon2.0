@@ -15,6 +15,7 @@ export default function Header() {
           fontSize: "40px",
           position: "relative",
           top: "-130px",
+          fontFamily: "Times New Roman",
         }}>
         BOOK
       </Button>

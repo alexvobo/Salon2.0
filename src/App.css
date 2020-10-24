@@ -2,6 +2,7 @@
   --PrimaryColor: #fdfce5;
   --SecondaryColor: #be3235;
   --Money: rgb(13, 175, 13);
+  --LinkColor: #007bff;
 }
 
 html,
@@ -24,13 +25,19 @@ html,
 
 .nav-link {
   font-size: 20px !important;
+
+}
+
+a {
+  cursor: pointer;
+}
+
+a.active {
+  color: var(--LinkColor) !important;
 }
 
 /* Header */
-.bookButton {
-  position: "relative" !important;
-  top: "-120px"!important;
-}
+
 
 
 /* Loading */
