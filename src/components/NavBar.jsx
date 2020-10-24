@@ -42,6 +42,7 @@ export default function NavBar() {
               to="contact">
               Contact
             </Link>
+            
           </Nav>
         </Navbar.Collapse>
       </Navbar>

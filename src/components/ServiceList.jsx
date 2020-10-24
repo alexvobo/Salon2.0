@@ -1,5 +1,6 @@
 import React from "react";
 import { Col } from "react-bootstrap";
+
 export default function ServiceList(props) {
   const { heading, services } = props;
   return (
@@ -16,7 +17,7 @@ export default function ServiceList(props) {
               {service.prices.map((priceType, i) => (
                 <li className="listPrices" key={i}>
                   <span className="money">${priceType["price"]}</span>{" "}
-                  {priceType["type"]}
+                  {priceType["serviceType"]}
                 </li>
               ))}
               {service.other.length > 1 && (

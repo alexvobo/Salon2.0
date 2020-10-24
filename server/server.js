@@ -1,48 +1,20 @@
-let express = require("express");
-let mongoose = require("mongoose");
-let cors = require("cors");
-let bodyParser = require("body-parser");
-let database = require("./database/db");
+var mongoose = require("mongoose");
+const express = require("express");
 
-const userRoute = require("../server/routes/user.routes");
+var port = 4000;
+const routes = require("./routes/routes");
+var uri = "mongodb://localhost:27017/local";
 
-mongoose.Promise = global.Promise;
+// Connect to MongoDB database
 mongoose
-  .connect(database.db, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(
-    () => {
-      console.log("Database connected sucessfully !");
-    },
-    (error) => {
-      console.log("Database could not be connected : " + error);
-    }
-  );
+  .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    const app = express();
 
-const app = express();
-app.use(bodyParser.json());
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-);
-app.use(cors());
-app.use("/users", userRoute);
+    app.use(express.json());
+    app.use("/api", routes);
 
-const port = process.env.PORT || 4000;
-const server = app.listen(port, () => {
-  console.log("Connected to port " + port);
-});
-
-// Error Handling
-app.use((req, res, next) => {
-  next(createError(404));
-});
-
-app.use(function (err, req, res, next) {
-  console.error(err.message);
-  if (!err.statusCode) err.statusCode = 500;
-  res.status(err.statusCode).send(err.message);
-});
+    app.listen(port, () => {
+      console.log("Server has started!");
+    });
+  });

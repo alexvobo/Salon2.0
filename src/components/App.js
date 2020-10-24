@@ -1,36 +1,42 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import "../App.css";
-import NavBar from "./NavBar";
-import { Nav, Navbar, Button } from "react-bootstrap";
-import Header from "./Header";
-import Gallery from "./Gallery";
-import Menu from "./Menu";
-import Contact from "./Contact";
-import Footer from "./Footer";
+
+import Login from "./Login";
+import Dashboard from "./Dashboard";
+import AppMain from "./AppMain";
 import jsondata from "../data.json";
 
 function App() {
   useEffect(() => {
     // for DB, use fetch(), if connection successful that means we can update site with new info
-    // mongoose
-    //   .connect("mongodb://localhost/AmericanBeautySalons", {})
-    //   .then((res) => setdata(res))
-    //   .then(setloading(0));
 
-    setdata(jsondata);
-    setloading(0);
+    fetch("api/services")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setdata(data);
+        setloading(0);
+      });
   }, []);
 
   const [data, setdata] = useState({});
   const [loading, setloading] = useState(1);
   return (
     <div className=" PrimaryColor PrimaryFont">
-      <NavBar />
-      <Header id="home" />
-      <Gallery id="gallery" />
-      <Menu id="services" data={data} loading={loading} />
-      <Contact id="contact" />
-      <Footer />
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/">
+            <AppMain loading={loading} data={data} />
+          </Route>
+          {/* When user logs in successfully, bring them to edit menu page */}
+
+          <Route path="/login" component={Login} />
+          <Route path="/dashboard" component={Dashboard} />
+          {/* Catch any invalid url */}
+          <Route render={() => <Redirect to={{ pathname: "/" }} />} />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }

@@ -1,0 +1,44 @@
+{
+    "type": "object",
+    "properties": {
+        "category": {
+            "type": "string"
+        },
+        "services": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "prices": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "price": {
+                                    "type": "string"
+                                },
+                                "serviceType": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "other": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "required": [
+                    "title",
+                    "prices"
+                ]
+            }
+        }
+    },
+    "required": [
+        "category",
+        "services"
+    ]
+}

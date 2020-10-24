@@ -9,10 +9,11 @@ function renderData(data) {
         <h1>Our Services</h1>
       </Row>
       <Row fluid className="justify-content-center">
-        {Object.keys(data).map((heading) => {
-          // Each heading contains services
-          const services = data[heading];
-          // Insert all of the services into the table DOC:
+        {data.map((serviceObj) => {
+          const heading = serviceObj.category;
+          const services = serviceObj.services;
+
+          // Insert all of the services into the table:
           return <ServiceList heading={heading} services={services} />;
         })}
       </Row>
