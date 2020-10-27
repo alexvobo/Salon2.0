@@ -17,7 +17,9 @@ html,
 .PrimaryFont {
   font-family: Lobster;
 }
-
+.DashBoardFont{
+  font-family: 'Times New Roman', Times, serif !important;
+}
 /* NavBar */
 .navbarBrand {
   font-size: 24px !important;

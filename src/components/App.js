@@ -5,7 +5,6 @@ import "../App.css";
 import Login from "./Login";
 import Dashboard from "./Dashboard";
 import AppMain from "./AppMain";
-import jsondata from "../data.json";
 
 function App() {
   useEffect(() => {
@@ -32,7 +31,10 @@ function App() {
           {/* When user logs in successfully, bring them to edit menu page */}
 
           <Route path="/login" component={Login} />
-          <Route path="/dashboard" component={Dashboard} />
+
+          <Route exact path="/dashboard">
+            <Dashboard loading={loading} data={data} />
+          </Route>
           {/* Catch any invalid url */}
           <Route render={() => <Redirect to={{ pathname: "/" }} />} />
         </Switch>

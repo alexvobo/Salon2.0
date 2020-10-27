@@ -1,96 +1,52 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
-import { Container, Button, Table, Form, InputGroup } from "react-bootstrap";
+import { Container, Dropdown, Spinner } from "react-bootstrap";
+import DashboardTable from "./DashboardTable";
+
 export default function Dashboard(props) {
-  const {} = props;
+  const { data, loading } = props;
+  const [loadingTable, setloadingTable] = useState(1);
+  const [selected, setselected] = useState("");
   const userRef = useRef();
-const passwordRef = useRef();
+  const passwordRef = useRef();
+  useEffect(() => {
+    // When selected changes, query to fill up the table
+    if (selected != "") setloadingTable(0);
+  }, [selected]);
   return (
-    <Container className="mt-4 blackbox">
-      <h1>Hello userName,</h1>
-      <Container className="mt-4 p-5 blackbox">
-        <Form>
-          <Form.Group controlId="exampleForm.SelectCustom">
-            <Form.Label>
-              {/* Category */}
-              <h2>Haircuts: </h2>
-            </Form.Label>
-            <Form.Control as="select" custom>
-              {/* Service Types */}
-              <option>Haircut</option>
-              <option>Haircut and Styling</option>
-            </Form.Control>
-          </Form.Group>
-        </Form>
-        <Container className="mb-5 ">
-          <Button
-            variant="secondary"
-            size="sm "
-            className="float-right mb-3"
-            active>
-            Remove
-          </Button>
-          <Button
-            variant="primary"
-            size="sm"
-            className="float-right mr-1 mb-3 "
-            active>
-            Add
-          </Button>{" "}
+    <>
+      {/* Make sure the data from DB is loaded */}
+      {loading ? (
+        <div
+          className="d-flex align-items-center justify-content-center "
+          style={{ minHeight: "100vh" }}>
+          <Spinner animation="border" variant="danger" />
+        </div>
+      ) : (
+        <Container className="p-5  mt-4 blackbox DashBoardFont">
+          <h1>Hello Lana,</h1>
+          {/* Query DB for headings, make them selectable */}
+          <Dropdown className="m-4" styles={{ fontSize: "24px" }}>
+            <Dropdown.Toggle variant="success" id="dropdown-basic">
+              {selected || "Categories"}
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              {data.map((serviceObj, idx) => {
+                const heading = serviceObj.category;
+                return (
+                  <Dropdown.Item
+                    key={idx}
+                    onSelect={() => setselected(heading)}>
+                    {heading}
+                  </Dropdown.Item>
+                );
+              })}
+            </Dropdown.Menu>
+          </Dropdown>
+          {!loadingTable && <DashboardTable heading={selected} data={data} />}
         </Container>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Service Name</th>
-              <th>Price</th>
-              <th>Type</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Haircut</td>
-              <td>45</td>
-              <td>Mens</td>
-            </tr>
-            <tr>
-              <td>Haircut</td>
-              <td>50</td>
-              <td>Short Hair</td>
-            </tr>
-            <tr>
-              <td>Haircut</td>
-              <td>60</td>
-              <td>Long Hair</td>
-            </tr>
-          </tbody>
-        </Table>
-        <Container className="mb-5 ">
-          <Button
-            variant="secondary"
-            size="sm "
-            className="float-right mb-3"
-            active>
-            Remove
-          </Button>
-          <Button
-            variant="primary"
-            size="sm"
-            className="float-right mr-1 mb-3 "
-            active>
-            Add
-          </Button>{" "}
-        </Container>
-        <InputGroup className="mt-5 mb-3">
-          <Form.Control
-            placeholder="Already saved other message..."
-            aria-label="Other"
-          />
-          <InputGroup.Append>
-            {/* If information change , allow saving */}
-            <Button variant="outline-secondary">Save</Button>
-          </InputGroup.Append>
-        </InputGroup>
-      </Container>
-    </Container>
+      )}
+    </>
   );
 }

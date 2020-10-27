@@ -1,0 +1,220 @@
+[{
+        "category": "Haircut",
+        "title": "Haircut",
+        "prices": [{
+                "price": 45,
+                "type": "Men's"
+            },
+            {
+                "price": 50,
+                "type": "Short Hair"
+            },
+            {
+                "price": 60,
+                "type": "Long Hair"
+            }
+        ],
+        "other": "​Includes wash & cut"
+    },
+    {
+        "category": "Haircut",
+        "title": "Haircut & Style",
+        "prices": [{
+                "price": 75,
+                "type": "Short hair"
+            },
+            {
+                "price": 90,
+                "type": "Long Hair"
+            },
+            {
+                "price": 110,
+                "type": "Extra Long Hair"
+            }
+        ],
+        "other": "​Includes wash, cut, & blow-dry"
+    },
+    {
+        "category": "Styling",
+        "title": "Deep Conditioner Treatment",
+        "prices": [{
+            "price": 30,
+            "type": ""
+        }],
+        "other": "​"
+    },
+    {
+        "category": "Styling",
+        "title": "Flat/Curling Iron",
+        "prices": [{
+            "price": 45,
+            "type": ""
+        }],
+        "other": "​"
+    },
+    {
+        "category": "Styling",
+        "title": "Blow Outs",
+        "prices": [{
+                "price": 40,
+                "type": "Short hair"
+            },
+            {
+                "price": 45,
+                "type": "Medium Hair"
+            },
+            {
+                "price": 50,
+                "type": "Long Hair"
+            }
+        ],
+        "other": "​"
+    },
+    {
+        "category": "Chemicals",
+        "title": "Gloss",
+        "prices": [{
+            "price": 80,
+            "type": ""
+        }],
+        "other": "​"
+    },
+    {
+        "category": "Chemicals",
+        "title": "Color",
+        "prices": [{
+                "price": 60,
+                "type": "Men's"
+            },
+            {
+                "price": 80,
+                "type": "Single process"
+            },
+            {
+                "price": 150,
+                "type": "Double process [bleach+toner]"
+            }
+        ],
+        "other": "​"
+    },
+    {
+        "category": "Chemicals",
+        "title": "Full Head Color ",
+        "prices": [{
+                "price": 120,
+                "type": "Short hair"
+            },
+            {
+                "price": 150,
+                "type": "Long Hair"
+            }
+        ],
+        "other": "​"
+    },
+    {
+        "category": "Chemicals",
+        "title": "Keratin Treatments ",
+        "prices": [{
+                "price": 200,
+                "type": "Short hair"
+            },
+            {
+                "price": 300,
+                "type": "Long Hair"
+            }
+        ],
+        "other": "​"
+    },
+    {
+        "category": "Chemicals",
+        "title": "Perms/Relaxers ",
+        "prices": [{
+                "price": 130,
+                "type": "Short hair"
+            },
+            {
+                "price": 180,
+                "type": "Long Hair"
+            }
+        ],
+        "other": "​"
+    },
+    {
+        "category": "Chemicals2",
+        "title": "Flash Highlights",
+        "prices": [{
+                "price": 75,
+                "type": "Short hair"
+            },
+            {
+                "price": 100,
+                "type": "Long Hair"
+            }
+        ],
+        "other": "​"
+    },
+    {
+        "category": "Chemicals2",
+        "title": "1/2 Head Highlights",
+        "prices": [{
+                "price": 150,
+                "type": "Short hair"
+            },
+            {
+                "price": 200,
+                "type": "Long Hair"
+            }
+        ],
+        "other": "​"
+    },
+    {
+        "category": "Chemicals2",
+        "title": "Full Head Highlights",
+        "prices": [{
+                "price": 200,
+                "type": "Short hair"
+            },
+            {
+                "price": 250,
+                "type": "Long Hair"
+            },
+            {
+                "price": 300,
+                "type": "Extra Long Hair"
+            }
+        ],
+        "other": "​"
+    },
+    {
+        "category": "Chemicals2",
+        "title": "Hair Botox (frizz repair)",
+        "prices": [{
+                "price": 200,
+                "type": "Short hair"
+            },
+            {
+                "price": 250,
+                "type": "Long Hair"
+            }
+        ],
+        "other": "​"
+    },
+    {
+        "category": "Chemicals2",
+        "title": "Balayage",
+        "prices": [{
+                "price": 250,
+                "type": "Medium hair"
+            },
+            {
+                "price": 300,
+                "type": "Long Hair"
+            },
+            {
+                "price": 350,
+                "type": "Extra Long hair"
+            }
+        ],
+        "other": "​"
+    }
+]

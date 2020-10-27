@@ -1,5 +1,6 @@
 [{
     "category": "Haircuts",
+    
     "services": [{
         "title": "Haircut",
         "prices": [{
@@ -58,7 +59,7 @@
         "other": "​"
     }]
 }, {
-    "category": "Chemicals",
+    "category": "Chemicals2",
     "services": [{
         "title": "Gloss",
         "prices": [{
