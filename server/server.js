@@ -7,7 +7,11 @@ var uri = "mongodb://localhost:27017/local";
 
 // Connect to MongoDB database
 mongoose
-  .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  })
   .then(() => {
     const app = express();
 

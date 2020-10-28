@@ -10,14 +10,14 @@ import {
 } from "react-bootstrap";
 import ModifyTableRow from "./ModifyTableRow";
 export default function DashboardTable(props) {
-  const { heading, data } = props;
+  const { heading, data, dataChangedGlobal } = props;
 
+  const [serviceID, setserviceID] = useState("");
   const [serviceTitle, setserviceTitle] = useState("");
   const [prices, setprices] = useState([]);
   const [otherInfo, setotherInfo] = useState("");
   const [rowData, setrowData] = useState("");
   const [show, setShow] = useState(false);
-
   const handleShow = (key) => {
     setrowData(key);
     setShow(true);
@@ -25,11 +25,26 @@ export default function DashboardTable(props) {
   const handleClose = () => {
     setShow(false);
   };
+  async function handleSubmitOther(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target),
+      formDataObj = Object.fromEntries(formData.entries());
 
+    const uri = `api/updateOther/${serviceID}/${formDataObj.otherText}`;
+    fetch(uri, { method: "PUT" })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log("Success:", result);
+      });
+
+    // await login(userRef.current.value, passwordRef.current.value);
+    // setLoading(false);
+  }
   function resetStates() {
     setserviceTitle("");
     setprices([]);
     setotherInfo("");
+    setserviceID("");
   }
 
   useEffect(() => {
@@ -39,13 +54,14 @@ export default function DashboardTable(props) {
   useEffect(() => {
     // When selected changes, query to fill up the table
     if (serviceTitle != "") {
-      const service = data
-        .filter((allCategories) => allCategories.category === heading)[0]
-        .services.filter((serviceObj) => serviceObj.title == serviceTitle)[0];
-      setserviceTitle(service.title);
-      setprices(service.prices);
-      setotherInfo(service.other);
-      console.log(service);
+      fetch("api/services/byTitle/" + serviceTitle)
+        .then((res) => res.json())
+        .then((data) => {
+          setserviceID(data._id);
+          setserviceTitle(data.title);
+          setprices(data.prices);
+          setotherInfo(data.other);
+        });
     }
   }, [serviceTitle]);
   return (
@@ -63,8 +79,8 @@ export default function DashboardTable(props) {
 
             <Dropdown.Menu>
               {data
-                .filter((serviceObj) => serviceObj.category === heading)[0]
-                .services.map((service, idx) => {
+                .filter((serviceObj) => serviceObj.category === heading)
+                .map((service, idx) => {
                   return (
                     <Dropdown.Item
                       key={idx}
@@ -104,28 +120,22 @@ export default function DashboardTable(props) {
               </tr>
             </thead>
             <tbody>
-              {data.map((serviceObj) => {
-                if (serviceObj.category === heading) {
-                  return serviceObj.services.map((service, idx2) => {
-                    if (service.title === serviceTitle) {
-                      return prices.map((priceType) => {
-                        const key =
-                          service.title +
-                          "_" +
-                          priceType.price +
-                          "_" +
-                          priceType.serviceType;
-                        return (
-                          <tr key={key} onClick={() => handleShow(key)}>
-                            <td key={key + "_1"}>{service.title}</td>
-                            <td key={key + "_2"}>${priceType.price}</td>
-                            <td key={key + "_3"}>{priceType.serviceType}</td>
-                          </tr>
-                        );
-                      });
-                    }
-                  });
-                }
+              {prices.map((priceType) => {
+                const key =
+                  serviceTitle +
+                  "_" +
+                  priceType.price +
+                  "_" +
+                  priceType.serviceType +
+                  "_" +
+                  serviceID;
+                return (
+                  <tr key={key} onClick={() => handleShow(key)}>
+                    <td key={key + "_1"}>{serviceTitle}</td>
+                    <td key={key + "_2"}>${priceType.price}</td>
+                    <td key={key + "_3"}>{priceType.serviceType}</td>
+                  </tr>
+                );
               })}
             </tbody>
           </Table>
@@ -138,35 +148,21 @@ export default function DashboardTable(props) {
             />
           </Modal>
 
-          <Container className="mb-5 ">
-            <Button
-              variant="secondary"
-              size="sm "
-              className="float-right mb-3"
-              active>
-              Remove
-            </Button>
-            <Button
-              variant="primary"
-              size="sm"
-              className="float-right mr-1 mb-3 "
-              active>
-              Add
-            </Button>{" "}
-          </Container>
-          <InputGroup className="mt-5 mb-3">
-            <Form.Control
-              placeholder={otherInfo}
-              aria-label="Other"
-              // onSubmit={}
-            />
-            <InputGroup.Append>
-              {/* If information change , allow saving */}
-              <Button variant="outline-secondary" type="submit">
-                Save
-              </Button>
-            </InputGroup.Append>
-          </InputGroup>
+          <Form onSubmit={handleSubmitOther}>
+            <InputGroup className="mt-5 mb-3">
+              <Form.Control
+                name="otherText"
+                placeholder={otherInfo}
+                aria-label="Other"
+              />
+              <InputGroup.Append>
+                {/* If information change , allow saving */}
+                <Button variant="outline-secondary" type="submit">
+                  Save
+                </Button>
+              </InputGroup.Append>
+            </InputGroup>
+          </Form>
         </>
       )}
     </Container>

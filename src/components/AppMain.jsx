@@ -7,13 +7,14 @@ import Contact from "./Contact";
 import Footer from "./Footer";
 
 export default function AppMain(props) {
-  const { data, loading } = props;
+  const { data, loading, headings } = props;
+
   return (
     <>
       <NavBar />
       <Header id="home" />
       <Gallery id="gallery" />
-      <Menu id="services" data={data} loading={loading} />
+      <Menu id="services" data={data} loading={loading} headings={headings} />
       <Contact id="contact" />
       <Footer />
     </>

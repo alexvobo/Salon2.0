@@ -2,13 +2,19 @@ var mongoose = require("mongoose");
 
 var ServiceSchema = mongoose.Schema({
   category: String,
-  title: String,
-  prices: [
+  services: [
     {
-      price: Number,
-      serviceType: String,
+      id: mongoose.Types.ObjectId,
+      title: String,
+      prices: [
+        {
+          price: Number,
+          serviceType: String,
+        },
+      ],
     },
   ],
+
   other: String,
 });
 
@@ -16,5 +22,5 @@ var ServiceSchema = mongoose.Schema({
 module.exports = mongoose.model(
   "Services",
   ServiceSchema,
-  "newAB"
+  "AmericanBeautySalonsMenu"
 );

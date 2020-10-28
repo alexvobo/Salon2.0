@@ -3,15 +3,15 @@
         "title": "Haircut",
         "prices": [{
                 "price": 45,
-                "type": "Men's"
+                "serviceType": "Men's"
             },
             {
                 "price": 50,
-                "type": "Short Hair"
+                "serviceType": "Short Hair"
             },
             {
                 "price": 60,
-                "type": "Long Hair"
+                "serviceType": "Long Hair"
             }
         ],
         "other": "​Includes wash & cut"
@@ -21,15 +21,15 @@
         "title": "Haircut & Style",
         "prices": [{
                 "price": 75,
-                "type": "Short hair"
+                "serviceType": "Short hair"
             },
             {
                 "price": 90,
-                "type": "Long Hair"
+                "serviceType": "Long Hair"
             },
             {
                 "price": 110,
-                "type": "Extra Long Hair"
+                "serviceType": "Extra Long Hair"
             }
         ],
         "other": "​Includes wash, cut, & blow-dry"
@@ -39,7 +39,7 @@
         "title": "Deep Conditioner Treatment",
         "prices": [{
             "price": 30,
-            "type": ""
+            "serviceType": ""
         }],
         "other": "​"
     },
@@ -48,7 +48,7 @@
         "title": "Flat/Curling Iron",
         "prices": [{
             "price": 45,
-            "type": ""
+            "serviceType": ""
         }],
         "other": "​"
     },
@@ -57,15 +57,15 @@
         "title": "Blow Outs",
         "prices": [{
                 "price": 40,
-                "type": "Short hair"
+                "serviceType": "Short hair"
             },
             {
                 "price": 45,
-                "type": "Medium Hair"
+                "serviceType": "Medium Hair"
             },
             {
                 "price": 50,
-                "type": "Long Hair"
+                "serviceType": "Long Hair"
             }
         ],
         "other": "​"
@@ -75,7 +75,7 @@
         "title": "Gloss",
         "prices": [{
             "price": 80,
-            "type": ""
+            "serviceType": ""
         }],
         "other": "​"
     },
@@ -84,15 +84,15 @@
         "title": "Color",
         "prices": [{
                 "price": 60,
-                "type": "Men's"
+                "serviceType": "Men's"
             },
             {
                 "price": 80,
-                "type": "Single process"
+                "serviceType": "Single process"
             },
             {
                 "price": 150,
-                "type": "Double process [bleach+toner]"
+                "serviceType": "Double process [bleach+toner]"
             }
         ],
         "other": "​"
@@ -102,11 +102,11 @@
         "title": "Full Head Color ",
         "prices": [{
                 "price": 120,
-                "type": "Short hair"
+                "serviceType": "Short hair"
             },
             {
                 "price": 150,
-                "type": "Long Hair"
+                "serviceType": "Long Hair"
             }
         ],
         "other": "​"
@@ -116,11 +116,11 @@
         "title": "Keratin Treatments ",
         "prices": [{
                 "price": 200,
-                "type": "Short hair"
+                "serviceType": "Short hair"
             },
             {
                 "price": 300,
-                "type": "Long Hair"
+                "serviceType": "Long Hair"
             }
         ],
         "other": "​"
@@ -130,11 +130,11 @@
         "title": "Perms/Relaxers ",
         "prices": [{
                 "price": 130,
-                "type": "Short hair"
+                "serviceType": "Short hair"
             },
             {
                 "price": 180,
-                "type": "Long Hair"
+                "serviceType": "Long Hair"
             }
         ],
         "other": "​"
@@ -144,11 +144,11 @@
         "title": "Flash Highlights",
         "prices": [{
                 "price": 75,
-                "type": "Short hair"
+                "serviceType": "Short hair"
             },
             {
                 "price": 100,
-                "type": "Long Hair"
+                "serviceType": "Long Hair"
             }
         ],
         "other": "​"
@@ -158,11 +158,11 @@
         "title": "1/2 Head Highlights",
         "prices": [{
                 "price": 150,
-                "type": "Short hair"
+                "serviceType": "Short hair"
             },
             {
                 "price": 200,
-                "type": "Long Hair"
+                "serviceType": "Long Hair"
             }
         ],
         "other": "​"
@@ -172,15 +172,15 @@
         "title": "Full Head Highlights",
         "prices": [{
                 "price": 200,
-                "type": "Short hair"
+                "serviceType": "Short hair"
             },
             {
                 "price": 250,
-                "type": "Long Hair"
+                "serviceType": "Long Hair"
             },
             {
                 "price": 300,
-                "type": "Extra Long Hair"
+                "serviceType": "Extra Long Hair"
             }
         ],
         "other": "​"
@@ -190,11 +190,11 @@
         "title": "Hair Botox (frizz repair)",
         "prices": [{
                 "price": 200,
-                "type": "Short hair"
+                "serviceType": "Short hair"
             },
             {
                 "price": 250,
-                "type": "Long Hair"
+                "serviceType": "Long Hair"
             }
         ],
         "other": "​"
@@ -204,15 +204,15 @@
         "title": "Balayage",
         "prices": [{
                 "price": 250,
-                "type": "Medium hair"
+                "serviceType": "Medium hair"
             },
             {
                 "price": 300,
-                "type": "Long Hair"
+                "serviceType": "Long Hair"
             },
             {
                 "price": 350,
-                "type": "Extra Long hair"
+                "serviceType": "Extra Long hair"
             }
         ],
         "other": "​"

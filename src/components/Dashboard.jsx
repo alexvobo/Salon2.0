@@ -1,18 +1,50 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
+import dataChangedContext from "../contexts/dataChangedContext";
 
 import { Container, Dropdown, Spinner } from "react-bootstrap";
 import DashboardTable from "./DashboardTable";
 
 export default function Dashboard(props) {
-  const { data, loading } = props;
+  const [data, setdata] = useState({});
+  const [headings, setheadings] = useState([]);
+  const [loading, setloading] = useState(1);
   const [loadingTable, setloadingTable] = useState(1);
   const [selected, setselected] = useState("");
   const userRef = useRef();
   const passwordRef = useRef();
+  // Keeps track of when we need to refresh api data
+
+  let dataChanged = useContext(dataChangedContext);
+
+  useEffect(() => {
+    // setloading(1);
+    console.log("triggered")
+    fetch("api/services")
+      .then((res) => res.json())
+      .then((data) => {
+        setdata(data);
+      });
+    fetch("api/services/headings")
+      .then((res) => res.json())
+      .then((data) => {
+        let result = data.map((o) => o._id);
+        setheadings(result);
+      });
+
+    if (data && headings) {
+      setloading(0);
+      dataChanged = 0;
+    }
+  }, [dataChanged]);
   useEffect(() => {
     // When selected changes, query to fill up the table
     if (selected != "") setloadingTable(0);
   }, [selected]);
+
+  //^ vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+  //* NEED TO MAKE SURE WE CHECK IF USER LOGGED IN TO DISPLAY DASHBOARD
+  //* NEED TO TRIGGER DATA UPDATE IF WE CHANGE ANY OF THE PARAMETERS
+  // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   return (
     <>
       {/* Make sure the data from DB is loaded */}
@@ -32,13 +64,10 @@ export default function Dashboard(props) {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              {data.map((serviceObj, idx) => {
-                const heading = serviceObj.category;
+              {headings.map((head, idx) => {
                 return (
-                  <Dropdown.Item
-                    key={idx}
-                    onSelect={() => setselected(heading)}>
-                    {heading}
+                  <Dropdown.Item key={idx} onSelect={() => setselected(head)}>
+                    {head}
                   </Dropdown.Item>
                 );
               })}
