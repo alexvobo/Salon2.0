@@ -40,6 +40,21 @@ export default function DashboardTable(props) {
     // await login(userRef.current.value, passwordRef.current.value);
     // setLoading(false);
   }
+  async function handleRemove(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target),
+      formDataObj = Object.fromEntries(formData.entries());
+
+    const uri = `api/updateOther/${serviceID}/${formDataObj.otherText}`;
+    fetch(uri, { method: "PUT" })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log("Success:", result);
+      });
+
+    // await login(userRef.current.value, passwordRef.current.value);
+    // setLoading(false);
+  }
   function resetStates() {
     setserviceTitle("");
     setprices([]);

@@ -11,15 +11,28 @@ export default function ModifyTableRow(props) {
   const serviceID = split[3];
   const [changed, setChanged] = useState(0);
   let dataChanged = useContext(dataChangedContext);
+
+  async function handleRemove(e) {
+    e.preventDefault();
+
+    const uri = `api/removePriceType/${serviceID}/${price}/${serviceType}`;
+    fetch(uri, { method: "PUT" })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log("Success:", result);
+      });
+    handleClose();
+    // await login(userRef.current.value, passwordRef.current.value);
+    // setLoading(false);
+  }
   // Make put request on save
   async function handleSave(e) {
     e.preventDefault();
     const formData = new FormData(e.target),
       formDataObj = Object.fromEntries(formData.entries());
 
-    let newTitle = service;
-    if (formDataObj.serviceText) {
-      newTitle = formDataObj.serviceText;
+    if (formDataObj.serviceText != service) {
+      let newTitle = formDataObj.serviceText;
       const uri = `api/updateTitle/${serviceID}/${newTitle}`;
       fetch(uri, { method: "PUT" })
         .then((response) => response.json())
@@ -30,7 +43,7 @@ export default function ModifyTableRow(props) {
       setChanged(1);
     }
 
-    if (formDataObj.priceText) {
+    if (formDataObj.priceText != price) {
       let newPrice = Number(formDataObj.priceText);
       const uri = `api/updatePrice/${serviceID}/${price}/${newPrice}`;
 
@@ -43,9 +56,7 @@ export default function ModifyTableRow(props) {
       setChanged(1);
     }
 
-    if (
-      formDataObj.serviceTypeText 
-    ) {
+    if (formDataObj.serviceTypeText != serviceType) {
       let newType = formDataObj.serviceTypeText;
       if (!serviceType) {
         serviceType = "%20";
@@ -106,7 +117,7 @@ export default function ModifyTableRow(props) {
             />
           </Form.Group>
           <div className="text-center">
-            <Button variant="secondary" onClick={handleClose} className="mr-3">
+            <Button variant="secondary" onClick={handleRemove} className="mr-3">
               Remove
             </Button>
             <Button variant="primary" type="submit">
