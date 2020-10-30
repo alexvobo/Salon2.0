@@ -1,24 +1,37 @@
-import React, { useRef, useState, useEffect, useContext } from "react";
-import dataChangedContext from "../contexts/dataChangedContext";
-
-import { Container, Dropdown, Spinner } from "react-bootstrap";
+import React, { useRef, useState, useEffect } from "react";
+import { useAuth } from "../contexts/AuthContext";
+import { Container, Dropdown, Spinner, Button, Alert } from "react-bootstrap";
 import DashboardTable from "./DashboardTable";
-
+import { useHistory } from "react-router-dom";
 export default function Dashboard(props) {
   const [data, setdata] = useState({});
+  const [error, setError] = useState("");
+
   const [headings, setheadings] = useState([]);
   const [loading, setloading] = useState(1);
   const [loadingTable, setloadingTable] = useState(1);
   const [selected, setselected] = useState("");
+
+  const history = useHistory();
+
   const userRef = useRef();
   const passwordRef = useRef();
+  const { currentUser, logout } = useAuth();
   // Keeps track of when we need to refresh api data
 
-  let dataChanged = useContext(dataChangedContext);
+  async function handleLogout() {
+    setError("");
+    try {
+      await logout();
+      history.push("/");
+    } catch {
+      setError("Failed to log out");
+    }
+  }
 
   useEffect(() => {
     // setloading(1);
-    console.log("triggered")
+    console.log("triggered");
     fetch("api/services")
       .then((res) => res.json())
       .then((data) => {
@@ -33,9 +46,8 @@ export default function Dashboard(props) {
 
     if (data && headings) {
       setloading(0);
-      dataChanged = 0;
     }
-  }, [dataChanged]);
+  }, []);
   useEffect(() => {
     // When selected changes, query to fill up the table
     if (selected != "") setloadingTable(0);
@@ -56,6 +68,7 @@ export default function Dashboard(props) {
         </div>
       ) : (
         <Container className="p-5  mt-4 blackbox DashBoardFont">
+          {error && <Alert variant="danger">{error}</Alert>}
           <h1>Hello Lana,</h1>
           {/* Query DB for headings, make them selectable */}
           <Dropdown className="m-4" styles={{ fontSize: "24px" }}>
@@ -74,6 +87,10 @@ export default function Dashboard(props) {
             </Dropdown.Menu>
           </Dropdown>
           {!loadingTable && <DashboardTable heading={selected} data={data} />}
+          <Button variant="link" onClick={handleLogout}>
+            {" "}
+            Log Out
+          </Button>
         </Container>
       )}
     </>

@@ -6,6 +6,7 @@ import "../App.css";
 import Login from "./Login";
 import Dashboard from "./Dashboard";
 import AppMain from "./AppMain";
+import PrivateRoute from "./PrivateRoute";
 
 function App() {
   useEffect(() => {
@@ -45,9 +46,10 @@ function App() {
 
             <Route path="/login" component={Login} />
 
-            <Route exact path="/dashboard">
-              <Dashboard />
-            </Route>
+            <PrivateRoute
+              exact
+              path="/dashboard"
+              component={Dashboard}></PrivateRoute>
             {/* Catch any invalid url */}
             <Route render={() => <Redirect to={{ pathname: "/" }} />} />
           </Switch>
