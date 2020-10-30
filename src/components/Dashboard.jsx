@@ -1,22 +1,21 @@
 import React, { useRef, useState, useEffect } from "react";
+
 import { useAuth } from "../contexts/AuthContext";
+
+import { useData } from "../contexts/DataContext";
+
 import { Container, Dropdown, Spinner, Button, Alert } from "react-bootstrap";
 import DashboardTable from "./DashboardTable";
 import { useHistory } from "react-router-dom";
-export default function Dashboard(props) {
-  const [data, setdata] = useState({});
-  const [error, setError] = useState("");
 
-  const [headings, setheadings] = useState([]);
-  const [loading, setloading] = useState(1);
+export default function Dashboard(props) {
+  const [error, setError] = useState("");
   const [loadingTable, setloadingTable] = useState(1);
   const [selected, setselected] = useState("");
 
   const history = useHistory();
-
-  const userRef = useRef();
-  const passwordRef = useRef();
-  const { currentUser, logout } = useAuth();
+  const apiData = useData();
+  const { logout } = useAuth();
   // Keeps track of when we need to refresh api data
 
   async function handleLogout() {
@@ -30,25 +29,6 @@ export default function Dashboard(props) {
   }
 
   useEffect(() => {
-    // setloading(1);
-    console.log("triggered");
-    fetch("api/services")
-      .then((res) => res.json())
-      .then((data) => {
-        setdata(data);
-      });
-    fetch("api/services/headings")
-      .then((res) => res.json())
-      .then((data) => {
-        let result = data.map((o) => o._id);
-        setheadings(result);
-      });
-
-    if (data && headings) {
-      setloading(0);
-    }
-  }, []);
-  useEffect(() => {
     // When selected changes, query to fill up the table
     if (selected != "") setloadingTable(0);
   }, [selected]);
@@ -60,7 +40,7 @@ export default function Dashboard(props) {
   return (
     <>
       {/* Make sure the data from DB is loaded */}
-      {loading ? (
+      {apiData.loading ? (
         <div
           className="d-flex align-items-center justify-content-center "
           style={{ minHeight: "100vh" }}>
@@ -69,7 +49,7 @@ export default function Dashboard(props) {
       ) : (
         <Container className="p-5  mt-4 blackbox DashBoardFont">
           {error && <Alert variant="danger">{error}</Alert>}
-          <h1>Hello Lana,</h1>
+          <h1>Hi Lana,</h1>
           {/* Query DB for headings, make them selectable */}
           <Dropdown className="m-4" styles={{ fontSize: "24px" }}>
             <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -77,7 +57,7 @@ export default function Dashboard(props) {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              {headings.map((head, idx) => {
+              {apiData.headings.map((head, idx) => {
                 return (
                   <Dropdown.Item key={idx} onSelect={() => setselected(head)}>
                     {head}
@@ -86,9 +66,10 @@ export default function Dashboard(props) {
               })}
             </Dropdown.Menu>
           </Dropdown>
-          {!loadingTable && <DashboardTable heading={selected} data={data} />}
+          {!loadingTable && (
+            <DashboardTable heading={selected} data={apiData.data} />
+          )}
           <Button variant="link" onClick={handleLogout}>
-            {" "}
             Log Out
           </Button>
         </Container>

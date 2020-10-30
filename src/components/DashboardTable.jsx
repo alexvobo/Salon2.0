@@ -9,8 +9,11 @@ import {
   Modal,
 } from "react-bootstrap";
 import ModifyTableRow from "./ModifyTableRow";
+
+import { useData, useDataUpdate } from "../contexts/DataContext";
+
 export default function DashboardTable(props) {
-  const { heading, data, dataChangedGlobal } = props;
+  const { heading, data } = props;
 
   const [serviceID, setserviceID] = useState("");
   const [serviceTitle, setserviceTitle] = useState("");
@@ -18,6 +21,10 @@ export default function DashboardTable(props) {
   const [otherInfo, setotherInfo] = useState("");
   const [rowData, setrowData] = useState("");
   const [show, setShow] = useState(false);
+
+  const apiData = useData();
+  const toggleUpdate = useDataUpdate();
+
   const handleShow = (key) => {
     setrowData(key);
     setShow(true);
@@ -35,6 +42,7 @@ export default function DashboardTable(props) {
       .then((response) => response.json())
       .then((result) => {
         console.log("Success:", result);
+        toggleUpdate();
       });
 
     // await login(userRef.current.value, passwordRef.current.value);
@@ -55,7 +63,7 @@ export default function DashboardTable(props) {
   useEffect(() => {
     // When selected changes, query to fill up the table
     if (serviceTitle != "") {
-      fetch("api/services/byTitle/" + serviceTitle)
+      fetch("api/services/byTitle/" + encodeURIComponent(serviceTitle))
         .then((res) => res.json())
         .then((data) => {
           setserviceID(data._id);
@@ -64,36 +72,28 @@ export default function DashboardTable(props) {
           setotherInfo(data.other);
         });
     }
-  }, [serviceTitle]);
+  }, [serviceTitle, apiData.data]);
   return (
     <Container className="mt-4 p-5 ">
-      <Form>
-        <Form.Group controlId="exampleForm.SelectCustom">
-          <Form.Label>
-            {/* Category */}
-            <h2>{heading}: </h2>
-          </Form.Label>
-          <Dropdown className="m-4" styles={{ fontSize: "24px" }}>
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
-              {serviceTitle || "Service"}
-            </Dropdown.Toggle>
+      <Dropdown className="m-4" styles={{ fontSize: "24px" }}>
+        <Dropdown.Toggle variant="success" id="dropdown-basic">
+          {serviceTitle || "Service"}
+        </Dropdown.Toggle>
 
-            <Dropdown.Menu>
-              {data
-                .filter((serviceObj) => serviceObj.category === heading)
-                .map((service, idx) => {
-                  return (
-                    <Dropdown.Item
-                      key={idx}
-                      onSelect={() => setserviceTitle(service.title)}>
-                      {service.title}
-                    </Dropdown.Item>
-                  );
-                })}
-            </Dropdown.Menu>
-          </Dropdown>
-        </Form.Group>
-      </Form>
+        <Dropdown.Menu>
+          {data
+            .filter((serviceObj) => serviceObj.category === heading)
+            .map((service, idx) => {
+              return (
+                <Dropdown.Item
+                  key={idx}
+                  onSelect={() => setserviceTitle(service.title)}>
+                  {service.title}
+                </Dropdown.Item>
+              );
+            })}
+        </Dropdown.Menu>
+      </Dropdown>
       <Container className="mb-5 ">
         <Button
           variant="secondary"
@@ -115,7 +115,7 @@ export default function DashboardTable(props) {
           <Table striped bordered hover>
             <thead>
               <tr>
-                <th>Service Name</th>
+                {/* <th>Service Name</th> */}
                 <th>Price</th>
                 <th>Type</th>
               </tr>
@@ -132,7 +132,7 @@ export default function DashboardTable(props) {
                   serviceID;
                 return (
                   <tr key={key} onClick={() => handleShow(key)}>
-                    <td key={key + "_1"}>{serviceTitle}</td>
+                    {/* <td key={key + "_1"}>{serviceTitle}</td> */}
                     <td key={key + "_2"}>${priceType.price}</td>
                     <td key={key + "_3"}>{priceType.serviceType}</td>
                   </tr>

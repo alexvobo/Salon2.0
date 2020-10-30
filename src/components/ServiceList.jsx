@@ -14,14 +14,21 @@ export default function ServiceList(props) {
             <span className="listTitle">{service.title}</span>
             <hr className="hr-small" />
             <ul className="list-unstyled">
+              {/* priceType represents the current element of the prices array within the service obj */}
               {service.prices.map((priceType, i) => (
-                <li className="listPrices" key={i}>
+                <li
+                  className="listPrices"
+                  key={priceType.id + priceType["price"]}>
                   <span className="money">${priceType["price"]}</span>{" "}
                   {priceType["serviceType"]}
                 </li>
               ))}
               {service.other.length > 1 && (
-                <li className="listPrices">{service.other}</li>
+                <li
+                  key={service._id + service.other.length}
+                  className="listPrices">
+                  {service.other}
+                </li>
               )}
             </ul>
           </li>

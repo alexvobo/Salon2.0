@@ -1,16 +1,14 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import dataChangedContext from "../contexts/dataChangedContext";
-
+import { useDataUpdate } from "../contexts/DataContext";
 export default function ModifyTableRow(props) {
   const { data, rowData, handleClose } = props;
+  const toggleUpdate = useDataUpdate();
   let split = rowData.split("_");
   const service = split[0];
   const price = split[1];
   let serviceType = split[2];
   const serviceID = split[3];
-  const [changed, setChanged] = useState(0);
-  let dataChanged = useContext(dataChangedContext);
 
   async function handleRemove(e) {
     e.preventDefault();
@@ -21,7 +19,9 @@ export default function ModifyTableRow(props) {
       .then((result) => {
         console.log("Success:", result);
       });
+
     handleClose();
+    toggleUpdate();
   }
   // Make put request on save
   async function handleSave(e) {
@@ -29,20 +29,18 @@ export default function ModifyTableRow(props) {
     const formData = new FormData(e.target),
       formDataObj = Object.fromEntries(formData.entries());
 
-    if (formDataObj.serviceText !== service) {
-      let newTitle = formDataObj.serviceText;
-      const uri = `api/updateTitle/${serviceID}/${newTitle}`;
-      fetch(uri, { method: "PUT" })
-        .then((response) => response.json())
-        .then((result) => {
-          console.log("Success:", result);
-        });
-      dataChanged = 1;
-      setChanged(1);
-    }
+    // if (formDataObj.serviceText !== service) {
+    //   let newTitle = formDataObj.serviceText;
+    //   const uri = `api/updateTitle/${serviceID}/${newTitle}`;
+    //   fetch(uri, { method: "PUT" })
+    //     .then((response) => response.json())
+    //     .then((result) => {
+    //       console.log("Success:", result);
+    //     });
+    // }
 
     if (formDataObj.priceText !== price) {
-      let newPrice = Number(formDataObj.priceText);
+      let newPrice = Number(formDataObj.priceText.replace("$", ""));
       const uri = `api/updatePrice/${serviceID}/${price}/${newPrice}`;
 
       fetch(uri, { method: "PUT" })
@@ -50,12 +48,10 @@ export default function ModifyTableRow(props) {
         .then((result) => {
           console.log("Success:", result);
         });
-      dataChanged = 1;
-      setChanged(1);
     }
 
     if (formDataObj.serviceTypeText !== serviceType) {
-      let newType = formDataObj.serviceTypeText;
+      let newType = encodeURIComponent(formDataObj.serviceTypeText);
       if (!serviceType) {
         serviceType = "%20";
       }
@@ -66,16 +62,11 @@ export default function ModifyTableRow(props) {
         .then((result) => {
           console.log("Success:", result);
         });
-      dataChanged = 1;
-      setChanged(1);
     }
 
     handleClose();
+    toggleUpdate();
   }
-  // useEffect(() => {
-  //   // fetch new data
-  //   setChanged(0);
-  // }, [changed]);
 
   return (
     <>
