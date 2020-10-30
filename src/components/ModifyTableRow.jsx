@@ -22,8 +22,6 @@ export default function ModifyTableRow(props) {
         console.log("Success:", result);
       });
     handleClose();
-    // await login(userRef.current.value, passwordRef.current.value);
-    // setLoading(false);
   }
   // Make put request on save
   async function handleSave(e) {
@@ -31,7 +29,7 @@ export default function ModifyTableRow(props) {
     const formData = new FormData(e.target),
       formDataObj = Object.fromEntries(formData.entries());
 
-    if (formDataObj.serviceText != service) {
+    if (formDataObj.serviceText !== service) {
       let newTitle = formDataObj.serviceText;
       const uri = `api/updateTitle/${serviceID}/${newTitle}`;
       fetch(uri, { method: "PUT" })
@@ -43,7 +41,7 @@ export default function ModifyTableRow(props) {
       setChanged(1);
     }
 
-    if (formDataObj.priceText != price) {
+    if (formDataObj.priceText !== price) {
       let newPrice = Number(formDataObj.priceText);
       const uri = `api/updatePrice/${serviceID}/${price}/${newPrice}`;
 
@@ -56,7 +54,7 @@ export default function ModifyTableRow(props) {
       setChanged(1);
     }
 
-    if (formDataObj.serviceTypeText != serviceType) {
+    if (formDataObj.serviceTypeText !== serviceType) {
       let newType = formDataObj.serviceTypeText;
       if (!serviceType) {
         serviceType = "%20";
@@ -73,8 +71,6 @@ export default function ModifyTableRow(props) {
     }
 
     handleClose();
-    // await login(userRef.current.value, passwordRef.current.value);
-    // setLoading(false);
   }
   // useEffect(() => {
   //   // fetch new data
