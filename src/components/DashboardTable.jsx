@@ -153,6 +153,7 @@ export default function DashboardTable(props) {
             <InputGroup className="mt-5 mb-3">
               <Form.Control
                 name="otherText"
+                value={otherInfo}
                 placeholder={otherInfo}
                 aria-label="Other"
               />

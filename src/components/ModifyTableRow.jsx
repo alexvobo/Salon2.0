@@ -75,7 +75,7 @@ export default function ModifyTableRow(props) {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSave}>
-          <Form.Group id="service">
+          {/* <Form.Group id="service">
             <Form.Label>Service</Form.Label>
             <Form.Control
               name="serviceText"
@@ -83,7 +83,7 @@ export default function ModifyTableRow(props) {
               defaultValue={service}
               placeholder={service}
             />
-          </Form.Group>
+          </Form.Group> */}
           <Form.Group id="servicePrice">
             <Form.Label>Price</Form.Label>
             <Form.Control

@@ -5,11 +5,11 @@ import ServiceList from "./ServiceList";
 
 function renderData(data, headings) {
   return (
-    <Container className=" blackbox ">
+    <Container fluid className=" blackbox ">
       <Row className="mt-4 justify-content-center">
         <h1>Our Services</h1>
       </Row>
-      <Row className="justify-content-center">
+      <Row  className="justify-content-center">
         {headings.map((serviceObj) => {
           const heading = serviceObj;
           // Insert all of the services into the table:

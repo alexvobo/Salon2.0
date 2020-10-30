@@ -5,7 +5,7 @@ export default function ServiceList(props) {
   const { heading, services } = props;
   return (
     <Col md="auto" className=" pt-3 m-1 ">
-      <span className="listHeading">{heading.replace(/[^a-z]/gi, "")}</span>
+      <span className="listHeading">{heading.replace(/[^a-z ]/gi, "")}</span>
 
       <ul className="list-unstyled">
         {services.map((service, i) => (
