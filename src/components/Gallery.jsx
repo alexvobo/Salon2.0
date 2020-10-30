@@ -4,6 +4,7 @@ export default function Gallery() {
   return (
     <div id="gallery">
       <iframe
+        id="instagram_gallery"
         src="https://cdn.lightwidget.com/widgets/dda3af6f8fa55eb7baa5fb48acfaa410.html"
         scrolling="no"
         allowtransparency="true"

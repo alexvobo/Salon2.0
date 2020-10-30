@@ -241,6 +241,32 @@ router.put("/updateTitle/:id/:newTitle", async (req, res) => {
     }
   );
 });
+// Update title by title
+router.put("/updateTitleByName/:oldTitle/:newTitle", async (req, res) => {
+  const oldTitle = req.params.oldTitle;
+  const newTitle = req.params.newTitle;
+  const services = await Services.findOneAndUpdate(
+    {
+      title: oldTitle,
+    },
+    {
+      title: newTitle,
+    },
+    function (err, result) {
+      if (err) {
+        res.json({
+          message: "Error",
+          error: err,
+        });
+      } else {
+        res.json({
+          message: `Updated title to ${newTitle}`,
+          data: result,
+        });
+      }
+    }
+  );
+});
 // Update price bound to ID
 router.put("/updatePrice/:id/:oldPrice/:newPrice", async (req, res) => {
   const oldPrice = req.params.oldPrice;

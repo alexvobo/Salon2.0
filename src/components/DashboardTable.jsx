@@ -9,6 +9,8 @@ import {
   Modal,
 } from "react-bootstrap";
 import ModifyTableRow from "./ModifyTableRow";
+import RenamePrompt from "./RenamePrompt";
+import AddRemoveService from "./AddRemoveService";
 
 import { useData, useDataUpdate } from "../contexts/DataContext";
 
@@ -20,18 +22,34 @@ export default function DashboardTable(props) {
   const [prices, setprices] = useState([]);
   const [otherInfo, setotherInfo] = useState("");
   const [rowData, setrowData] = useState("");
-  const [show, setShow] = useState(false);
 
   const apiData = useData();
   const toggleUpdate = useDataUpdate();
 
-  const handleShow = (key) => {
+  const [showModify, setShowModify] = useState(false);
+  const handleCloseModify = () => setShowModify(false);
+
+  const [showRename, setShowRename] = useState(false);
+  const handleCloseRename = () => setShowRename(false);
+
+  const [showAdd, setShowAdd] = useState(false);
+  const handleAddClose = () => setShowAdd(false);
+
+  async function toggleRenamePrompt() {
+    setShowRename((show) => !show);
+  }
+  async function toggleAddPrompt() {
+    setShowAdd((show) => !show);
+  }
+  async function toggleModify() {
+    setShowModify((show) => !show);
+  }
+
+  const handleShowTable = (key) => {
     setrowData(key);
-    setShow(true);
+    setShowModify(true);
   };
-  const handleClose = () => {
-    setShow(false);
-  };
+
   async function handleSubmitOther(e) {
     e.preventDefault();
     const formData = new FormData(e.target),
@@ -75,7 +93,7 @@ export default function DashboardTable(props) {
   }, [serviceTitle, apiData.data]);
   return (
     <Container className="mt-4 p-5 ">
-      <Dropdown className="m-4" styles={{ fontSize: "24px" }}>
+      <Dropdown as="ButtonGroup" className="m-4" styles={{ fontSize: "24px" }}>
         <Dropdown.Toggle variant="success" id="dropdown-basic">
           {serviceTitle || "Service"}
         </Dropdown.Toggle>
@@ -94,6 +112,18 @@ export default function DashboardTable(props) {
             })}
         </Dropdown.Menu>
       </Dropdown>
+      {serviceTitle !== "" && (
+        <Button size="sm" onClick={toggleRenamePrompt}>
+          Rename
+        </Button>
+      )}
+      <Modal show={showRename} onHide={handleCloseRename}>
+        <RenamePrompt
+          handleClose={handleCloseRename}
+          type={"title"}
+          name={serviceTitle}
+        />
+      </Modal>
       <Container className="mb-5 ">
         <Button
           variant="secondary"
@@ -106,9 +136,17 @@ export default function DashboardTable(props) {
           variant="primary"
           size="sm"
           className="float-right mr-1 mb-3 "
-          active>
+          active
+          onClick={toggleAddPrompt}>
           Add
         </Button>
+        <Modal show={showAdd} onHide={handleAddClose}>
+          <AddRemoveService
+            handleClose={handleAddClose}
+            type={"add"}
+            category={heading}
+          />
+        </Modal>
       </Container>
       {serviceTitle != "" && (
         <>
@@ -131,7 +169,7 @@ export default function DashboardTable(props) {
                   "_" +
                   serviceID;
                 return (
-                  <tr key={key} onClick={() => handleShow(key)}>
+                  <tr key={key} onClick={() => handleShowTable(key)}>
                     {/* <td key={key + "_1"}>{serviceTitle}</td> */}
                     <td key={key + "_2"}>${priceType.price}</td>
                     <td key={key + "_3"}>{priceType.serviceType}</td>
@@ -141,11 +179,11 @@ export default function DashboardTable(props) {
             </tbody>
           </Table>
 
-          <Modal show={show} onHide={handleClose} animation={false}>
+          <Modal show={showModify} onHide={handleCloseModify} animation={false}>
             <ModifyTableRow
               data={data}
               rowData={rowData}
-              handleClose={handleClose}
+              handleClose={handleCloseModify}
             />
           </Modal>
 
@@ -153,7 +191,6 @@ export default function DashboardTable(props) {
             <InputGroup className="mt-5 mb-3">
               <Form.Control
                 name="otherText"
-                value={otherInfo}
                 placeholder={otherInfo}
                 aria-label="Other"
               />

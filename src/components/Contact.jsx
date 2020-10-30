@@ -12,6 +12,7 @@ export default function Contact() {
   return (
     <div id="contact">
       <iframe
+      id = "goog_map"
         className="pb-5"
         src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDzw76uNc7ZCKbWaEqJzr2wFnl0ZYvCRjc&amp;q=American+Beauty+Salons,+100+William+St,+New+York,+NY+10038"
         style={{ border: 0 }}

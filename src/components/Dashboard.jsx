@@ -46,9 +46,8 @@ export default function Dashboard(props) {
     if (selected !== "") setloadingTable(false);
   }, [selected]);
 
-  async function toggleRenameCategory() {;
-    setShowRename( show => !show);
-    
+  async function toggleRenamePrompt() {
+    setShowRename((show) => !show);
   }
   return (
     <>
@@ -85,7 +84,7 @@ export default function Dashboard(props) {
             </Dropdown>
 
             {!loadingTable && (
-              <Button size="sm" onClick={toggleRenameCategory}>
+              <Button size="sm" onClick={toggleRenamePrompt}>
                 Rename
               </Button>
             )}
@@ -93,7 +92,8 @@ export default function Dashboard(props) {
             <Modal show={showRename} onHide={handleCloseRename}>
               <RenamePrompt
                 handleClose={handleCloseRename}
-                category={selected}
+                type={"category"}
+                name={selected}
               />
             </Modal>
 
