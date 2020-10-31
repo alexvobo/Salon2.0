@@ -35,11 +35,17 @@ export default function DashboardTable(props) {
   const [showAdd, setShowAdd] = useState(false);
   const handleAddClose = () => setShowAdd(false);
 
+  const [showRemove, setShowRemove] = useState(false);
+  const handleRemoveClose = () => setShowRemove(false);
+
   async function toggleRenamePrompt() {
     setShowRename((show) => !show);
   }
   async function toggleAddPrompt() {
     setShowAdd((show) => !show);
+  }
+  async function toggleRemovePrompt() {
+    setShowRemove((show) => !show);
   }
   async function toggleModify() {
     setShowModify((show) => !show);
@@ -112,11 +118,30 @@ export default function DashboardTable(props) {
             })}
         </Dropdown.Menu>
       </Dropdown>
+      <Button
+        variant="primary"
+        size="sm"
+        className=" "
+        active
+        onClick={toggleAddPrompt}>
+        Add
+      </Button>
       {serviceTitle !== "" && (
-        <Button size="sm" onClick={toggleRenamePrompt}>
-          Rename
-        </Button>
+        <>
+          <Button size="sm" onClick={toggleRenamePrompt}>
+            Rename
+          </Button>
+          <Button
+            variant="secondary"
+            size="sm "
+            className=" "
+            active
+            onClick={toggleRemovePrompt}>
+            Remove
+          </Button>
+        </>
       )}
+
       <Modal show={showRename} onHide={handleCloseRename}>
         <RenamePrompt
           handleClose={handleCloseRename}
@@ -124,33 +149,25 @@ export default function DashboardTable(props) {
           name={serviceTitle}
         />
       </Modal>
-      <Container className="mb-5 ">
-        <Button
-          variant="secondary"
-          size="sm "
-          className="float-right mb-3"
-          active>
-          Remove
-        </Button>
-        <Button
-          variant="primary"
-          size="sm"
-          className="float-right mr-1 mb-3 "
-          active
-          onClick={toggleAddPrompt}>
-          Add
-        </Button>
-        <Modal show={showAdd} onHide={handleAddClose}>
-          <AddRemoveService
-            handleClose={handleAddClose}
-            type={"add"}
-            category={heading}
-          />
-        </Modal>
-      </Container>
+
+      <Modal show={showAdd} onHide={handleAddClose}>
+        <AddRemoveService
+          handleClose={handleAddClose}
+          type={"add"}
+          data={{ category: heading }}
+        />
+      </Modal>
+
+      <Modal show={showRemove} onHide={handleRemoveClose}>
+        <AddRemoveService
+          handleClose={handleRemoveClose}
+          type={"remove"}
+          data={{ service: serviceTitle, id: serviceID }}
+        />
+      </Modal>
       {serviceTitle != "" && (
         <>
-          <Table striped bordered hover>
+          <Table className="mt-3" striped bordered hover>
             <thead>
               <tr>
                 {/* <th>Service Name</th> */}

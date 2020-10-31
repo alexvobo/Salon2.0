@@ -377,7 +377,7 @@ router.put("/updateOther/:id/:newOther?", async (req, res) => {
 //! Delete
 
 // Remove record
-router.delete("/removeRecord/:id", async (req, res) => {
+router.put("/removeRecord/:id", async (req, res) => {
   const services = await Services.deleteOne(
     {
       _id: req.params.id,
