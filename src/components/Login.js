@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Container, Button, Card, Form, Alert } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function Login() {

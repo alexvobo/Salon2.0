@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import { AuthProvider } from "../contexts/AuthContext";
@@ -6,7 +6,7 @@ import { DataProvider } from "../contexts/DataContext";
 
 import Login from "./Login";
 import Dashboard from "./Dashboard";
-import AppMain from "./AppMain";
+import MainSite from "./MainSite";
 import PrivateRoute from "./PrivateRoute";
 
 import "../App.css";
@@ -19,7 +19,7 @@ function App() {
           <AuthProvider>
             <Switch>
               <Route exact path="/">
-                <AppMain/>
+                <MainSite />
               </Route>
               <Route path="/login" component={Login} />
               <PrivateRoute

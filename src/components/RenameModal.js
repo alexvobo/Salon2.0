@@ -1,24 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal, Button, Form, Alert } from "react-bootstrap";
 import { useDataUpdate } from "../contexts/DataContext";
-
-export default function RenamePrompt(props) {
+const TITLE = "title";
+const CATEGORY = "category";
+export default function RenameModal(props) {
   const { handleClose, type, name } = props;
   const toggleUpdate = useDataUpdate();
-  //   const [error, setError] = useState("");
+  const [error, setError] = useState("");
   async function handleSave(e) {
     e.preventDefault();
 
     const formData = new FormData(e.target),
       formDataObj = Object.fromEntries(formData.entries());
-
     const newName = encodeURIComponent(formDataObj.renameText);
+    setError("");
+
     if (newName) {
-      //   setError("");
       let uri = "";
-      if (type === "category") {
+
+      if (type === CATEGORY) {
         uri = `api/updateCategory/${name}/${newName}`;
-      } else if (type === "title") {
+      } else if (type === TITLE) {
         uri = `api/updateTitleByName/${name}/${newName}`;
       }
 
@@ -28,10 +30,10 @@ export default function RenamePrompt(props) {
             .then((response) => response.json())
             .then((result) => {
               console.log("Success:", result);
+              toggleUpdate();
             });
-          toggleUpdate();
         } catch {
-          // setError("Failed to update" + newName);
+          setError(`Failed to update ${name} to ${newName}`);
         }
       }
 
@@ -40,6 +42,7 @@ export default function RenamePrompt(props) {
   }
   return (
     <>
+      {error && <Alert variant="danger">{error}</Alert>}
       <Modal.Header closeButton>
         <Modal.Title style={{ textTransform: "capitalize" }}>
           Rename {name}
@@ -53,18 +56,16 @@ export default function RenamePrompt(props) {
               type="text"
               defaultValue={name}
               placeholder={name}
+              required
             />
           </Form.Group>
-          <Button variant="primary" type="submit">
-            Save Changes
-          </Button>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
+          <div className="text-center">
+            <Button variant="primary" type="submit">
+              Save Changes
+            </Button>
+          </div>
         </Form>
       </Modal.Body>
-
-      <Modal.Footer></Modal.Footer>
     </>
   );
 }

@@ -12,7 +12,7 @@ export default function Contact() {
   return (
     <div id="contact">
       <iframe
-      id = "goog_map"
+        title="goog_map"
         className="pb-5"
         src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDzw76uNc7ZCKbWaEqJzr2wFnl0ZYvCRjc&amp;q=American+Beauty+Salons,+100+William+St,+New+York,+NY+10038"
         style={{ border: 0 }}
@@ -28,6 +28,7 @@ export default function Contact() {
         <Row className="mt-3 justify-content-center">
           <a
             target="_blank"
+            rel="noopener noreferrer"
             href="https://goo.gl/maps/8erzR58SsyZHJpbM7"
             style={{ textDecoration: "none" }}>
             <p className="contactInfo text-center">
@@ -46,7 +47,6 @@ export default function Contact() {
             <li>
               <FontAwesomeIcon icon={faPhone} size="1x" />
               <a className="contactInfo" href="tel:+19292101542">
-                {"  "}
                 +1 (929) 210 1542
               </a>
             </li>
@@ -65,6 +65,7 @@ export default function Contact() {
           <Col className="text-center">
             <a
               target="_blank"
+              rel="noopener noreferrer"
               href="https://www.instagram.com/americanbeautysalons/">
               <FontAwesomeIcon icon={faInstagram} size="5x" />
             </a>
@@ -72,12 +73,16 @@ export default function Contact() {
           <Col className="text-center">
             <a
               target="_blank"
+              rel="noopener noreferrer"
               href="https://www.facebook.com/americanbeautysalons/">
               <FontAwesomeIcon icon={faFacebook} size="5x" />
             </a>
           </Col>
           <Col className="text-center">
-            <a target="_blank" href="https://ab.simplybook.me/v2/">
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://ab.simplybook.me/v2/">
               <FontAwesomeIcon icon={faCalendarAlt} size="5x" />
             </a>
           </Col>

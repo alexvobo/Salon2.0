@@ -1,9 +1,4 @@
 import React, { useState, useEffect } from "react";
-
-import { useAuth } from "../contexts/AuthContext";
-
-import { useData, useDataUpdate } from "../contexts/DataContext";
-
 import {
   Container,
   Dropdown,
@@ -11,26 +6,36 @@ import {
   Button,
   Alert,
   Modal,
+  ButtonGroup,
 } from "react-bootstrap";
+
+import { useAuth } from "../contexts/AuthContext";
+import { useData, useDataUpdate } from "../contexts/DataContext";
+
 import DashboardTable from "./DashboardTable";
 import { useHistory } from "react-router-dom";
-import RenamePrompt from "./RenamePrompt";
+import RenameModal from "./RenameModal";
+import AddRemoveServiceModal from "./AddRemoveServiceModal";
 
 export default function Dashboard(props) {
   const [error, setError] = useState("");
   const [loadingTable, setloadingTable] = useState(true);
   const [selected, setselected] = useState("");
-  const [showModal, setShowModal] = useState(false);
-  const toggleUpdate = useDataUpdate();
+
+  const [showAdd, setShowAdd] = useState(false);
+  const handleAddClose = () => setShowAdd(false);
+  async function toggleAddPrompt() {
+    setShowAdd((show) => !show);
+  }
+  // const [showModal, setShowModal] = useState(false);
+  // const toggleUpdate = useDataUpdate();
   const history = useHistory();
   const apiData = useData();
-  const { logout } = useAuth();
-  // Keeps track of when we need to refresh api data
-  // Handles rename prompt
+  const { logout, hours, username } = useAuth();
+
   const [showRename, setShowRename] = useState(false);
   const handleCloseRename = () => setShowRename(false);
-  const handleShowRename = () => setShowRename(true);
-  //
+
   async function handleLogout() {
     setError("");
     try {
@@ -61,14 +66,22 @@ export default function Dashboard(props) {
       ) : (
         <Container className="p-5  mt-4 blackbox DashBoardFont">
           {error && <Alert variant="danger">{error}</Alert>}
-          <h1>Hi Lana,</h1>
+
+          <h2>
+            {hours < 12
+              ? `Good morning ${username}`
+              : hours < 18
+              ? `Good afternoon ${username}`
+              : `Good evening ${username}`}
+          </h2>
           {/* Query DB for headings, make them selectable */}
-          <div>
+          <div className="text-center">
             <Dropdown
-              as="ButtonGroup"
+              as={ButtonGroup}
               className="m-4"
+              size="lg"
               styles={{ fontSize: "24px" }}>
-              <Dropdown.Toggle variant="success" id="dropdown-basic">
+              <Dropdown.Toggle variant="primary" id="dropdown-basic">
                 {selected || "Categories"}
               </Dropdown.Toggle>
 
@@ -82,15 +95,24 @@ export default function Dashboard(props) {
                 })}
               </Dropdown.Menu>
             </Dropdown>
-
-            {!loadingTable && (
-              <Button size="sm" onClick={toggleRenamePrompt}>
-                Rename
+            <ButtonGroup>
+              <Button size="md" variant="success" onClick={toggleAddPrompt}>
+                Add Service
               </Button>
-            )}
-
-            <Modal show={showRename} onHide={handleCloseRename}>
-              <RenamePrompt
+              {!loadingTable && (
+                <Button size="md" variant="info" onClick={toggleRenamePrompt}>
+                  Rename
+                </Button>
+              )}
+            </ButtonGroup>
+            <Modal centered show={showAdd} onHide={handleAddClose}>
+              <AddRemoveServiceModal
+                handleClose={handleAddClose}
+                type={"add"}
+              />
+            </Modal>
+            <Modal centered show={showRename} onHide={handleCloseRename}>
+              <RenameModal
                 handleClose={handleCloseRename}
                 type={"category"}
                 name={selected}
@@ -98,7 +120,10 @@ export default function Dashboard(props) {
             </Modal>
 
             {!loadingTable && (
-              <DashboardTable heading={selected} data={apiData.data} />
+              <>
+                <hr />
+                <DashboardTable heading={selected} />
+              </>
             )}
           </div>
           <Button

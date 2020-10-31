@@ -10,6 +10,8 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
+  const [username, setUsername] = useState("Lana");
+  const [hours, setHours] = useState(0);
 
   function login(email, password) {
     return auth.signInWithEmailAndPassword(email, password);
@@ -28,10 +30,17 @@ export function AuthProvider({ children }) {
     return unsubscribe;
   }, []);
 
+  useEffect(() => {
+    const hour = new Date().getHours();
+    setHours(hour);
+  }, []);
+
   const value = {
     currentUser,
     login,
     logout,
+    hours,
+    username,
   };
 
   return (

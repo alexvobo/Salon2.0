@@ -3,6 +3,7 @@ import { Col } from "react-bootstrap";
 
 export default function ServiceList(props) {
   const { heading, services } = props;
+
   return (
     <Col md="auto" className=" pt-3 m-1 ">
       <span className="listHeading">{heading.replace(/[^a-z ]/gi, "")}</span>
@@ -16,9 +17,7 @@ export default function ServiceList(props) {
             <ul className="list-unstyled">
               {/* priceType represents the current element of the prices array within the service obj */}
               {service.prices.map((priceType, i) => (
-                <li
-                  className="listPrices"
-                  key={priceType.id + priceType["price"]}>
+                <li className="listPrices" key={i}>
                   <span className="money">${priceType["price"]}</span>{" "}
                   {priceType["serviceType"]}
                 </li>

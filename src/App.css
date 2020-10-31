@@ -1,9 +1,10 @@
 :root {
-  --PrimaryColor: #fdfce5;
+  --PrimaryColor: #fffff;
   --SecondaryColor: #be3235;
   --Money: rgb(13, 175, 13);
   --LinkColor: #007bff;
 }
+
 
 html,
 .PrimaryColor {
@@ -17,9 +18,11 @@ html,
 .PrimaryFont {
   font-family: Lobster;
 }
-.DashBoardFont{
-  font-family: 'Times New Roman', Times, serif !important;
+
+.DashBoardFont {
+  font-family: Arial, Helvetica, sans-serif !important
 }
+
 /* NavBar */
 .navbarBrand {
   font-size: 24px !important;

@@ -13,6 +13,7 @@ export function DataProvider({ children }) {
   const [data, setData] = useState([]);
   const [headings, setHeadings] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [hour, setHour] = useState(0);
 
   // Toggling this will trigger data refresh
   function toggleUpdate() {
@@ -38,11 +39,12 @@ export function DataProvider({ children }) {
     }
   }, [dataLoaded]);
 
+  const value = { data: data, headings: headings, loaded: dataLoaded };
+
   return (
-    <DataContext.Provider
-      value={{ data: data, headings: headings, loaded: dataLoaded }}>
+    <DataContext.Provider value={value}>
       <DataUpdateContext.Provider value={toggleUpdate}>
-        {children}
+        {dataLoaded && children}
       </DataUpdateContext.Provider>
     </DataContext.Provider>
   );
