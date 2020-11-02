@@ -35,10 +35,10 @@ export default function AddServiceModal(props) {
         const typeEncode = encodeURIComponent(formDataObj.serviceTypeText);
         const otherEncode = encodeURIComponent(formDataObj.otherText);
 
-        uri = `api/createRecord/${catEncode}/${titleEncode}/${priceEncode}/${typeEncode}/${otherEncode}`;
+        uri = `api/createRecord/${process.env.REACT_APP_API_KEY}/${catEncode}/${titleEncode}/${priceEncode}/${typeEncode}/${otherEncode}`;
       }
     } else if (type === REMOVE) {
-      uri = `api/removeRecord/${data.id}`;
+      uri = `api/removeRecord/${process.env.REACT_APP_API_KEY}/${data.id}`;
     }
 
     if (uri !== "") {
@@ -104,6 +104,7 @@ export default function AddServiceModal(props) {
               <div className="text-center">
                 <Button
                   style={{ textTransform: "capitalize" }}
+                  className="w-100"
                   variant="primary"
                   type="submit">
                   {type}
@@ -112,12 +113,16 @@ export default function AddServiceModal(props) {
             </>
           ) : (
             <>
-              <p className="text-center">
-                Are you sure you wish to remove all of {data.service}?
-              </p>
+              <h5 className="text-center">
+                Are you sure you wish to remove all of
+              </h5>
+              <h5 className="text-center">
+                <b>{data.service}?</b>
+              </h5>
               <div className="text-center">
                 <Button
                   style={{ textTransform: "capitalize" }}
+                  className="mt-2 w-100"
                   variant="danger"
                   type="submit">
                   {type}

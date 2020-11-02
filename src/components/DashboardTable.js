@@ -33,17 +33,14 @@ export default function DashboardTable(props) {
   const handleCloseModify = () => setShowModify(false);
   const [showRename, setShowRename] = useState(false);
   const handleCloseRename = () => setShowRename(false);
-  const [showAdd, setShowAdd] = useState(false);
-  const handleAddClose = () => setShowAdd(false);
+
   const [showRemove, setShowRemove] = useState(false);
   const handleRemoveClose = () => setShowRemove(false);
 
   async function toggleRenamePrompt() {
     setShowRename((show) => !show);
   }
-  async function toggleAddPrompt() {
-    setShowAdd((show) => !show);
-  }
+
   async function toggleRemovePrompt() {
     setShowRemove((show) => !show);
   }
@@ -57,7 +54,7 @@ export default function DashboardTable(props) {
     const formData = new FormData(e.target),
       formDataObj = Object.fromEntries(formData.entries());
 
-    const uri = `api/updateOther/${serviceID}/${formDataObj.otherText}`;
+    const uri = `api/updateOther/${process.env.REACT_APP_API_KEY}/${serviceID}/${formDataObj.otherText}`;
     fetch(uri, { method: "PUT" })
       .then((response) => response.json())
       .then((result) => {
@@ -140,9 +137,7 @@ export default function DashboardTable(props) {
           name={serviceTitle}
         />
       </Modal>
-      <Modal centered show={showAdd} onHide={handleAddClose}>
-        <AddRemoveServiceModal handleClose={handleAddClose} type={"add"} />
-      </Modal>
+
       <Modal centered show={showRemove} onHide={handleRemoveClose}>
         <AddRemoveServiceModal
           handleClose={handleRemoveClose}

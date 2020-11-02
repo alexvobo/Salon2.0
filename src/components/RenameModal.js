@@ -19,9 +19,9 @@ export default function RenameModal(props) {
       let uri = "";
 
       if (type === CATEGORY) {
-        uri = `api/updateCategory/${name}/${newName}`;
+        uri = `api/updateCategory/${process.env.REACT_APP_API_KEY}/${name}/${newName}`;
       } else if (type === TITLE) {
-        uri = `api/updateTitleByName/${name}/${newName}`;
+        uri = `api/updateTitleByName/${process.env.REACT_APP_API_KEY}/${name}/${newName}`;
       }
 
       if (uri !== "") {
@@ -59,11 +59,10 @@ export default function RenameModal(props) {
               required
             />
           </Form.Group>
-          <div className="text-center">
-            <Button variant="primary" type="submit">
-              Save Changes
-            </Button>
-          </div>
+
+          <Button className="w-100" variant="primary" type="submit">
+            Save Changes
+          </Button>
         </Form>
       </Modal.Body>
     </>

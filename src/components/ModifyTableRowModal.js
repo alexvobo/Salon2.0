@@ -14,7 +14,7 @@ export default function ModifyTableRowModal(props) {
   async function handleRemove(e) {
     e.preventDefault();
 
-    const uri = `api/removePriceType/${serviceID}/${price}/${serviceType}`;
+    const uri = `api/removePriceType/${process.env.REACT_APP_API_KEY}/${serviceID}/${price}/${serviceType}`;
     fetch(uri, { method: "PUT" })
       .then((response) => response.json())
       .then((result) => {
@@ -33,7 +33,7 @@ export default function ModifyTableRowModal(props) {
 
     if (formDataObj.priceText !== price) {
       let newPrice = Number(formDataObj.priceText.replace("$", ""));
-      const uri = `api/updatePrice/${serviceID}/${price}/${newPrice}`;
+      const uri = `api/updatePrice/${process.env.REACT_APP_API_KEY}/${serviceID}/${price}/${newPrice}`;
 
       fetch(uri, { method: "PUT" })
         .then((response) => response.json())
@@ -46,7 +46,7 @@ export default function ModifyTableRowModal(props) {
       let newType = encodeURIComponent(formDataObj.serviceTypeText);
       serviceType = encodeURIComponent(serviceType);
 
-      const uri = `api/updateType/${serviceID}/${serviceType}/${newType}`;
+      const uri = `api/updateType/${process.env.REACT_APP_API_KEY}/${serviceID}/${serviceType}/${newType}`;
 
       fetch(uri, { method: "PUT" })
         .then((response) => response.json())
@@ -54,9 +54,8 @@ export default function ModifyTableRowModal(props) {
           console.log("Success:", result);
         });
     }
-
-    handleClose();
     toggleUpdate();
+    handleClose();
   }
 
   return (
@@ -85,11 +84,11 @@ export default function ModifyTableRowModal(props) {
             />
           </Form.Group>
           <div className="text-center">
-            <Button variant="secondary" onClick={handleRemove} className="mr-3">
-              Remove
-            </Button>
-            <Button variant="primary" type="submit">
+            <Button className="w-50" variant="primary" type="submit">
               Save
+            </Button>
+            <Button className="w-50" variant="secondary" onClick={handleRemove}>
+              Remove
             </Button>
           </div>
         </Form>

@@ -22,7 +22,7 @@
     "react-scripts": "3.4.3",
     "react-scroll": "^1.8.1"
   },
-  "proxy": "http://localhost:4000/",
+  "proxy": "https://american-beauty.herokuapp.com/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
