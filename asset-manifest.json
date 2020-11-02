@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/Salon2.0/static/css/main.6a0f41b7.chunk.css",
+    "main.js": "/Salon2.0/static/js/main.ce15d9c1.chunk.js",
+    "main.js.map": "/Salon2.0/static/js/main.ce15d9c1.chunk.js.map",
+    "runtime-main.js": "/Salon2.0/static/js/runtime-main.031400a1.js",
+    "runtime-main.js.map": "/Salon2.0/static/js/runtime-main.031400a1.js.map",
+    "static/css/2.733aa2fb.chunk.css": "/Salon2.0/static/css/2.733aa2fb.chunk.css",
+    "static/js/2.e068f9fd.chunk.js": "/Salon2.0/static/js/2.e068f9fd.chunk.js",
+    "static/js/2.e068f9fd.chunk.js.map": "/Salon2.0/static/js/2.e068f9fd.chunk.js.map",
+    "index.html": "/Salon2.0/index.html",
+    "precache-manifest.8a422de65a897e8f886672e5e68ab003.js": "/Salon2.0/precache-manifest.8a422de65a897e8f886672e5e68ab003.js",
+    "service-worker.js": "/Salon2.0/service-worker.js",
+    "static/css/2.733aa2fb.chunk.css.map": "/Salon2.0/static/css/2.733aa2fb.chunk.css.map",
+    "static/css/main.6a0f41b7.chunk.css.map": "/Salon2.0/static/css/main.6a0f41b7.chunk.css.map",
+    "static/js/2.e068f9fd.chunk.js.LICENSE.txt": "/Salon2.0/static/js/2.e068f9fd.chunk.js.LICENSE.txt",
+    "static/media/bg.jpg": "/Salon2.0/static/media/bg.36477da9.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.031400a1.js",
+    "static/css/2.733aa2fb.chunk.css",
+    "static/js/2.e068f9fd.chunk.js",
+    "static/css/main.6a0f41b7.chunk.css",
+    "static/js/main.ce15d9c1.chunk.js"
+  ]
+}
