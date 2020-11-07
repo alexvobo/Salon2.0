@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
-
+const API_URL = "https://american-beauty.herokuapp.com/"
+// const API_URL = "";
 const DataContext = React.createContext();
 const DataUpdateContext = React.createContext();
 export function useData() {
@@ -13,7 +14,6 @@ export function DataProvider({ children }) {
   const [data, setData] = useState([]);
   const [headings, setHeadings] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
-  const [hour, setHour] = useState(0);
 
   // Toggling this will trigger data refresh
   function toggleUpdate() {
@@ -22,17 +22,21 @@ export function DataProvider({ children }) {
   // Fetch data from our API when dataLoaded is toggled
   useEffect(() => {
     console.log("triggered dataUpdate");
-    fetch("api/services")
+
+    fetch(API_URL + "api/services")
       .then((res) => res.json())
       .then((d) => {
         setData(d);
-      });
-    fetch("api/services/headings")
+      })
+      .catch((error) => console.log(error));
+
+    fetch(API_URL + "api/services/headings")
       .then((res) => res.json())
       .then((d) => {
         let result = d.map((o) => o._id);
         setHeadings(result);
-      });
+      })
+      .catch((error) => console.log(error));
 
     if (data && headings) {
       setDataLoaded(true);

@@ -23,7 +23,6 @@
     "react-scripts": "3.4.3",
     "react-scroll": "^1.8.1"
   },
-  "proxy": "https://american-beauty.herokuapp.com/",
   "homepage": "http://vobos2.github.io/Salon2.0",
   "scripts": {
     "predeploy": "react-scripts build",
