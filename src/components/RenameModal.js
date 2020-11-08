@@ -14,6 +14,7 @@ export default function RenameModal(props) {
 
     const formData = new FormData(e.target),
       formDataObj = Object.fromEntries(formData.entries());
+    const oldName = encodeURIComponent(name);
     const newName = encodeURIComponent(formDataObj.renameText);
     setError("");
 
@@ -23,11 +24,11 @@ export default function RenameModal(props) {
       if (type === CATEGORY) {
         uri =
           apiData.API_URL +
-          `api/updateCategory/${process.env.REACT_APP_API_KEY}/${name}/${newName}`;
+          `api/updateCategory/${process.env.REACT_APP_API_KEY}/${oldName}/${newName}`;
       } else if (type === TITLE) {
         uri =
           apiData.API_URL +
-          `api/updateTitleByName/${process.env.REACT_APP_API_KEY}/${name}/${newName}`;
+          `api/updateTitleByName/${process.env.REACT_APP_API_KEY}/${oldName}/${newName}`;
       }
 
       if (uri !== "") {

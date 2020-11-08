@@ -49,9 +49,9 @@ export default function ModifyTableRowModal(props) {
 
     if (formDataObj.serviceTypeText !== serviceType) {
       let newType = encodeURIComponent(formDataObj.serviceTypeText);
-      serviceType = encodeURIComponent(serviceType);
+      let srvType = encodeURIComponent(serviceType);
 
-      const uri = `api/updateType/${process.env.REACT_APP_API_KEY}/${serviceID}/${serviceType}/${newType}`;
+      const uri = `api/updateType/${process.env.REACT_APP_API_KEY}/${serviceID}/${srvType}/${newType}`;
 
       fetch(uri, { method: "PUT" })
         .then((response) => response.json())
