@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-const API_URL = "https://american-beauty.herokuapp.com/"
-// const API_URL = "";
+
 const DataContext = React.createContext();
 const DataUpdateContext = React.createContext();
 export function useData() {
@@ -14,6 +13,7 @@ export function DataProvider({ children }) {
   const [data, setData] = useState([]);
   const [headings, setHeadings] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
+  const API_URL = "https://american-beauty.herokuapp.com/";
 
   // Toggling this will trigger data refresh
   function toggleUpdate() {
@@ -21,8 +21,6 @@ export function DataProvider({ children }) {
   }
   // Fetch data from our API when dataLoaded is toggled
   useEffect(() => {
-    console.log("triggered dataUpdate");
-
     fetch(API_URL + "api/services")
       .then((res) => res.json())
       .then((d) => {
@@ -43,7 +41,12 @@ export function DataProvider({ children }) {
     }
   }, [dataLoaded]);
 
-  const value = { data: data, headings: headings, loaded: dataLoaded };
+  const value = {
+    data: data,
+    headings: headings,
+    loaded: dataLoaded,
+    API_URL: API_URL,
+  };
 
   return (
     <DataContext.Provider value={value}>

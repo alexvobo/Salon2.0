@@ -35,10 +35,14 @@ export default function AddServiceModal(props) {
         const typeEncode = encodeURIComponent(formDataObj.serviceTypeText);
         const otherEncode = encodeURIComponent(formDataObj.otherText);
 
-        uri = `api/createRecord/${process.env.REACT_APP_API_KEY}/${catEncode}/${titleEncode}/${priceEncode}/${typeEncode}/${otherEncode}`;
+        uri =
+          apiData.API_URL +
+          `api/createRecord/${process.env.REACT_APP_API_KEY}/${catEncode}/${titleEncode}/${priceEncode}/${typeEncode}/${otherEncode}`;
       }
     } else if (type === REMOVE) {
-      uri = `api/removeRecord/${process.env.REACT_APP_API_KEY}/${data.id}`;
+      uri =
+        apiData.API_URL +
+        `api/removeRecord/${process.env.REACT_APP_API_KEY}/${data.id}`;
     }
 
     if (uri !== "") {

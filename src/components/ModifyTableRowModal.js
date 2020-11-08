@@ -14,7 +14,9 @@ export default function ModifyTableRowModal(props) {
   async function handleRemove(e) {
     e.preventDefault();
 
-    const uri = `api/removePriceType/${process.env.REACT_APP_API_KEY}/${serviceID}/${price}/${serviceType}`;
+    const uri =
+      apiData.API_URL +
+      `api/removePriceType/${process.env.REACT_APP_API_KEY}/${serviceID}/${price}/${serviceType}`;
     fetch(uri, { method: "PUT" })
       .then((response) => response.json())
       .then((result) => {
@@ -33,7 +35,9 @@ export default function ModifyTableRowModal(props) {
 
     if (formDataObj.priceText !== price) {
       let newPrice = Number(formDataObj.priceText.replace("$", ""));
-      const uri = `api/updatePrice/${process.env.REACT_APP_API_KEY}/${serviceID}/${price}/${newPrice}`;
+      const uri =
+        apiData.API_URL +
+        `api/updatePrice/${process.env.REACT_APP_API_KEY}/${serviceID}/${price}/${newPrice}`;
 
       fetch(uri, { method: "PUT" })
         .then((response) => response.json())

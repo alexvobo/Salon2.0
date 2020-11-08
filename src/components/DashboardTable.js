@@ -54,7 +54,9 @@ export default function DashboardTable(props) {
     const formData = new FormData(e.target),
       formDataObj = Object.fromEntries(formData.entries());
 
-    const uri = `api/updateOther/${process.env.REACT_APP_API_KEY}/${serviceID}/${formDataObj.otherText}`;
+    const uri =
+      apiData.API_URL +
+      `api/updateOther/${process.env.REACT_APP_API_KEY}/${serviceID}/${formDataObj.otherText}`;
     fetch(uri, { method: "PUT" })
       .then((response) => response.json())
       .then((result) => {
@@ -77,7 +79,11 @@ export default function DashboardTable(props) {
   useEffect(() => {
     // When selected changes, query to fill up the table
     if (serviceTitle !== "") {
-      fetch("api/services/byTitle/" + encodeURIComponent(serviceTitle))
+      fetch(
+        apiData.API_URL +
+          "api/services/byTitle/" +
+          encodeURIComponent(serviceTitle)
+      )
         .then((res) => res.json())
         .then((data) => {
           setserviceID(data._id);

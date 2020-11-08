@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Modal, Button, Form, Alert } from "react-bootstrap";
-import { useDataUpdate } from "../contexts/DataContext";
+import { useData, useDataUpdate } from "../contexts/DataContext";
 const TITLE = "title";
 const CATEGORY = "category";
 export default function RenameModal(props) {
   const { handleClose, type, name } = props;
   const toggleUpdate = useDataUpdate();
+  const apiData = useData();
   const [error, setError] = useState("");
+
   async function handleSave(e) {
     e.preventDefault();
 
@@ -19,9 +21,13 @@ export default function RenameModal(props) {
       let uri = "";
 
       if (type === CATEGORY) {
-        uri = `api/updateCategory/${process.env.REACT_APP_API_KEY}/${name}/${newName}`;
+        uri =
+          apiData.API_URL +
+          `api/updateCategory/${process.env.REACT_APP_API_KEY}/${name}/${newName}`;
       } else if (type === TITLE) {
-        uri = `api/updateTitleByName/${process.env.REACT_APP_API_KEY}/${name}/${newName}`;
+        uri =
+          apiData.API_URL +
+          `api/updateTitleByName/${process.env.REACT_APP_API_KEY}/${name}/${newName}`;
       }
 
       if (uri !== "") {
