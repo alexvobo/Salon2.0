@@ -1,9 +1,10 @@
 import React from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import { useDataUpdate } from "../contexts/DataContext";
+import { useData, useDataUpdate } from "../contexts/DataContext";
 export default function ModifyTableRowModal(props) {
   const { rowData, handleClose } = props;
   const toggleUpdate = useDataUpdate();
+  const apiData = useData();
 
   let split = rowData.split("_");
   // const service = split[0];
