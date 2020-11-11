@@ -1,5 +1,5 @@
 ## [AmericanBeautySalons.net](http://AmericanBeautySalons.net "AmericanBeautySalons.net") new home
-#### Express (REST API), React (Front End), MongoDB (Database) 
+### Express (REST API), React (Front End), MongoDB (Database) 
 
 ### To view the beta:
 1. Click here to wake the API: https://american-beauty.herokuapp.com/api/services/
